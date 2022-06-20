@@ -20,3 +20,4 @@ class HmsPatient(models.Model):
     address = fields.Text()
     pcr = fields.Boolean(string="PCR")
     image = fields.Binary()
+    department_id = fields.Many2one("hms.department")
