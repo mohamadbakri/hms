@@ -23,11 +23,11 @@
                                 <field name="age"/>
                             </group>
                             <group>
-                                <field name="cr_ratio"/>
+                                <field name="cr_ratio" attrs="{'required': [('pcr', '=', True)]}"/>
                                 <field name="pcr"/>
                                 <field name="blood_type"/>
                                 <field name="image"/>
-                                <field name="department_id" domain="[('is_opened', '=', True)]"/>
+                                <field name="department_id" domain="[('is_opened', '=',True)]"/>
                                 <field name="department_capacity"/>
                                 <field name="doctors_ids" widget="many2many_tags" attrs-="{'readonly': [('department_id', '=', False)]}"/>
 
