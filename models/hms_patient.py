@@ -31,10 +31,23 @@ class HmsPatient(models.Model):
     department_id = fields.Many2one("hms.department")
     department_capacity = fields.Integer(related="department_id.capacity")
     logs_ids =  fields.One2many("hms.patient.log","patient_id")
-    def change_state(self):
-        pass
+    def set_good(self):
+        self.state="g"
+        self._add_log("Good")
 
+    def set_fair(self):
+        self.state="f"
+        self._add_log("Fair")
 
+    def set_serious(self):
+        self.state="s"
+        self._add_log("Serious")
+
+    def _add_log(self, state):
+        self.env["hms.patient.log"].create({
+            "description": f"State changed to {state}",
+            "patient_id":self.id
+        })
 class PatientLog(models.Model):
     _name="hms.patient.log"
 

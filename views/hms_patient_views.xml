@@ -6,7 +6,12 @@
             <field name="arch" type="xml">
                 <form >
                     <header>
-                       <button string="Change State" type="object" name="change_state"/>
+                        <button string="Set Good" type="object" name="set_good"
+                        attrs="{'invisible' : [('state', '=', 'g')]}"/>
+                        <button string="Set Fair" type="object" name="set_fair"
+                        attrs="{'invisible' : [('state', '=', 'f')]}"/>
+                        <button string="Set Serious" type="object" name="set_serious"
+                        attrs="{'invisible' : [('state', '=', 's')]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
