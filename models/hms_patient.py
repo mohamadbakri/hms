@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class HmsPatient(models.Model):
@@ -49,6 +49,16 @@ class HmsPatient(models.Model):
             "description": f"State changed to {state}",
             "patient_id":self.id
         })
+
+    @api.onchange('age')
+    def _onchange_state(self):
+        if self.age and self.age < 30:
+            self.pcr = True
+            return {
+                'domain': {},
+                'warning': {'title': "warning",
+                           'message': "PCR field has been checked"}
+                   }
 class PatientLog(models.Model):
     _name="hms.patient.log"
 
