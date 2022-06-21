@@ -1,5 +1,6 @@
 from odoo import models, fields, api
-
+import re
+from odoo.exceptions import ValidationError
 
 class HmsPatient(models.Model):
     _name = "hms.patient"
@@ -22,6 +23,7 @@ class HmsPatient(models.Model):
     cr_ratio = fields.Float()
     # cr_ratio = fields.Float(attrs='{"required": [("pcr", "=", "True")]}')
     image = fields.Binary()
+    email = fields.Char()
     state = fields.Selection([
         ("un", "Undetermined"),
         ("g", "Good"),
@@ -59,6 +61,18 @@ class HmsPatient(models.Model):
                 'warning': {'title': "warning",
                            'message': "PCR field has been checked"}
                    }
+
+    @api.constrains("email")
+    def _validate_email(self):
+        pattern = "([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
+        if not re.fullmatch(pattern, self.email):
+            raise ValidationError("Email is not valid")
+
+    _sql_constraints = [
+        ('unique_email', 'UNIQUE(email)', 'Email already exists')
+    ]
+
+
 class PatientLog(models.Model):
     _name="hms.patient.log"
 

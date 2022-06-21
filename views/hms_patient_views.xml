@@ -21,6 +21,7 @@
                                 <field name="last_name"/>
                                 <field name="birth_date"/>
                                 <field name="age"/>
+                                <field name="email"/>
                             </group>
                             <group>
                                 <field name="cr_ratio" attrs="{'required': [('pcr', '=', True)]}"/>
