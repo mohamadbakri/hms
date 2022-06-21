@@ -24,12 +24,12 @@ class HmsPatient(models.Model):
     image = fields.Binary()
     department_id = fields.Many2one("hms.department")
     department_capacity = fields.Integer(related="department_id.capacity")
-#     logs_ids =  fields.One2many("hms.patient.log","patient_id")
-#
-#
-#
-# class PatientLog(models.Model):
-#     _name="hms.patient.log"
-#
-#     description = fields.Text()
-#     patient_id = fields.many2one("hms.patient")
+    logs_ids =  fields.One2many("hms.patient.log","patient_id")
+
+
+
+class PatientLog(models.Model):
+    _name="hms.patient.log"
+
+    description = fields.Text()
+    patient_id = fields.Many2one("hms.patient")
