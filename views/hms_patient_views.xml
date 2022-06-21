@@ -34,7 +34,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="History">
+                            <page string="History" attrs="{'invisible': [('age', '&lt;', '50')]}" >
                                 <field name="history"/>
                             </page>
                             <page string = "Address">
