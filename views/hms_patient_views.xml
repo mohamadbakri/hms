@@ -1,9 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+        <record id="hms_patient_tree" model="ir.ui.view">
+            <field name="name">HMS Patient Tree View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="first_name"/>
+                                <field name="last_name"/>
+                                <field name="birth_date"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="cr_ratio"/>
+                                <field name="pcr"/>
+                                <field name="blood_type"/>
+                                <field name="image"/>
+                                <field name="department_id"/>
+                                <field name="department_capacity"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="History">
+                                <field name="history"/>
+                            </page>
+                            <page string = "Address">
+                                <field name="address"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <record id="hms_patient_action" model="ir.actions.act_window">
             <field name="name">Patients</field>
             <field name="res_model">hms.patient</field>
             <field name="view_mode">tree,form</field>
         </record>
-   </data>
 </odoo>

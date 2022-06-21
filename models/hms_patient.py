@@ -19,5 +19,17 @@ class HmsPatient(models.Model):
     ], )
     address = fields.Text()
     pcr = fields.Boolean(string="PCR")
+    cr_ratio = fields.Float()
+    # cr_ratio = fields.Float(attrs='{"required": [("pcr", "=", "True")]}')
     image = fields.Binary()
     department_id = fields.Many2one("hms.department")
+    department_capacity = fields.Integer(related="department_id.capacity")
+#     logs_ids =  fields.One2many("hms.patient.log","patient_id")
+#
+#
+#
+# class PatientLog(models.Model):
+#     _name="hms.patient.log"
+#
+#     description = fields.Text()
+#     patient_id = fields.many2one("hms.patient")
