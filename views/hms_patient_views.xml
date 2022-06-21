@@ -27,7 +27,7 @@
                                 <field name="pcr"/>
                                 <field name="blood_type"/>
                                 <field name="image"/>
-                                <field name="department_id"/>
+                                <field name="department_id" domain="[('is_opened', '=', True)]"/>
                                 <field name="department_capacity"/>
                             </group>
                         </group>
