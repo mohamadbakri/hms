@@ -5,6 +5,10 @@
             <field name="model">hms.patient</field>
             <field name="arch" type="xml">
                 <form >
+                    <header>
+                       <button string="Change State" type="object" name="change_state"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>

@@ -22,10 +22,17 @@ class HmsPatient(models.Model):
     cr_ratio = fields.Float()
     # cr_ratio = fields.Float(attrs='{"required": [("pcr", "=", "True")]}')
     image = fields.Binary()
+    state = fields.Selection([
+        ("un", "Undetermined"),
+        ("g", "Good"),
+        ("f", "Fair"),
+        ("s", "Serious")
+    ],default="un" )
     department_id = fields.Many2one("hms.department")
     department_capacity = fields.Integer(related="department_id.capacity")
     logs_ids =  fields.One2many("hms.patient.log","patient_id")
-
+    def change_state(self):
+        pass
 
 
 class PatientLog(models.Model):
