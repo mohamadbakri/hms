@@ -28,6 +28,7 @@ class HmsPatient(models.Model):
         ("f", "Fair"),
         ("s", "Serious")
     ],default="un" )
+    doctors_ids=fields.Many2many("hms.doctor")
     department_id = fields.Many2one("hms.department")
     department_capacity = fields.Integer(related="department_id.capacity")
     logs_ids =  fields.One2many("hms.patient.log","patient_id")
