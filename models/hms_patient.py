@@ -10,7 +10,7 @@ class HmsPatient(models.Model):
     first_name = fields.Char()
     last_name = fields.Char()
     history = fields.Html()
-    age = fields.Integer()
+    age = fields.Integer(compute="calc_age")
     birth_date = fields.Date()
     blood_type = fields.Selection([
         ("a", "A"),
@@ -71,7 +71,12 @@ class HmsPatient(models.Model):
     _sql_constraints = [
         ('unique_email', 'UNIQUE(email)', 'Email already exists')
     ]
-
+    @api.depends("birth_date")
+    def calc_age(self):
+        for rec in self:
+           if rec.birth_date:
+               diff = fields.Date.today() - rec.birth_date
+               rec.age  = diff.days // 365
 
 class PatientLog(models.Model):
     _name="hms.patient.log"
