@@ -1,12 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+        <record id="hms_patient_tree" model="ir.ui.view">
+            <field name="name">HMS Patient Tree View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form >
+                    <header>
+                        <button string="Set Good" type="object" name="set_good"
+                        attrs="{'invisible' : [('state', '=', 'g')]}"/>
+                        <button string="Set Fair" type="object" name="set_fair"
+                        attrs="{'invisible' : [('state', '=', 'f')]}"/>
+                        <button string="Set Serious" type="object" name="set_serious"
+                        attrs="{'invisible' : [('state', '=', 's')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="first_name"/>
+                                <field name="last_name"/>
+                                <field name="birth_date"/>
+                                <field name="age"/>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                <field name="cr_ratio" attrs="{'required': [('pcr', '=', True)]}"/>
+                                <field name="pcr"/>
+                                <field name="blood_type"/>
+                                <field name="image"/>
+                                <field name="department_id" domain="[('is_opened', '=',True)]"/>
+                                <field name="department_capacity"/>
+                                <field name="doctors_ids" widget="many2many_tags" groups="hms.hms_manager_group"
+                                       attrs-="{'readonly': [('department_id', '=', False)]}"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="History" attrs="{'invisible': [('age', '&lt;', '50')]}" >
+                                <field name="history"/>
+                            </page>
+                            <page string = "Address">
+                                <field name="address"/>
+                            </page>
+                            <page string = "Log History">
+                                <field name="logs_ids">
+                                    <tree editable="bottom">
+                                        <field name="create_uid" readonly="True"/>
+                                        <field name="create_date" readonly="True"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <record id="hms_patient_action" model="ir.actions.act_window">
             <field name="name">Patients</field>
             <field name="res_model">hms.patient</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <menuitem id="menu_hms_root" name="HMS" />
-        <menuitem id="hms_patients_menu" name="Patients" parent="menu_hms_root" action="hms_patient_action"/>
-    </data>
 </odoo>

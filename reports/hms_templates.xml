@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <template id="hms_patient_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="patient">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-sm-6">
+<!--                                <h1 style="color: red;"><span t-out="patient.first_name"/>  <span t-out="patient.last_name"/></h1>-->
+                                <h1 style="color: red;">Patient Status Report</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <img style="width:250px;height:50px" t-att-src="image_data_uri(patient.image)"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5><span style="font-weight:bold">Name:</span> <span t-out="patient.first_name"/> <span t-out="patient.last_name"/></h5>
+                                <h5><span style="font-weight:bold">Age:</span> <span t-out="patient.age"/></h5>
+                                <h5><span style="font-weight:bold">Department:</span> <span t-out="patient.department_id.name"/></h5>
+                                <h5>
+                                    <span style="font-weight:bold">Doctors:</span>
+                                    <t t-foreach="patient.doctors_ids" t-as="doctor">
+                                        <span t-out="doctor.full_name" />
+                                        <t t-if="not doctor_last"><span>,</span></t>
+                                    </t>
+                                </h5>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5><span style="font-weight:bold">Birth Date:</span> <span t-out="patient.birth_date"/></h5>
+                                <h5><span style="font-weight:bold">PCR:</span> <span t-out="patient.pcr"/></h5>
+                                <h5><span style="font-weight:bold">Blood Type:</span> <span t-out="patient.blood_type"/></h5>
+                                <h5><span style="font-weight:bold">Email:</span> <span t-out="patient.email"/></h5>
+                            </div>
+                            <div class="container-fluid">
+                                <p class="text-center">Log History</p>
+                            </div>
+                            <t t-if="patient.logs_ids">
+                                <table class="table-striped" style="width:100%">
+                                    <tr>
+                                        <td>User</td>
+                                        <td>Date</td>
+                                        <td>Info</td>
+                                    </tr>
+                                    <t t-foreach="patient.logs_ids" t-as="log_line">
+                                        <tr>
+                                            <td><span t-out="log_line.create_uid.name"/></td>
+                                            <td><span t-out="log_line.create_date"/></td>
+                                            <td><span t-out="log_line.description"/></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>
